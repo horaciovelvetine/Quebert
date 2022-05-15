@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import { Intents } from 'discord.js';
 
 export default {
