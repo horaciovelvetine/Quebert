@@ -2,21 +2,23 @@ import { Client } from 'discord.js';
 import config from './config';
 import helpCommand from './commands';
 
-const { intents, prefix, token } = config;
+const { prefix, token } = config;
 
 const client = new Client({
-  intents,
+  intents: ["GUILDS", "GUILD_MESSAGES"],
   presence: {
     status: 'online',
     activities: [{
-      name: `${prefix}help`,
+      name: `@me for helpful info`,
       type: 'LISTENING'
     }]
-  }
+  },
 });
 
+
+
 client.on('ready', () => {
-  console.log(`Logged in as: ${client.user?.tag}`);
+  console.log(`Quebert is Logged in and ready, use (ctrl + c) to end his... life?`);
 });
 
 client.on('messageCreate', async (message) => {

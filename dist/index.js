@@ -4,19 +4,19 @@ const tslib_1 = require("tslib");
 const discord_js_1 = require("discord.js");
 const config_1 = tslib_1.__importDefault(require("./config"));
 const commands_1 = tslib_1.__importDefault(require("./commands"));
-const { intents, prefix, token } = config_1.default;
+const { prefix, token } = config_1.default;
 const client = new discord_js_1.Client({
-    intents,
+    intents: ["GUILDS", "GUILD_MESSAGES"],
     presence: {
         status: 'online',
         activities: [{
-                name: `${prefix}help`,
+                name: `@me for helpful info`,
                 type: 'LISTENING'
             }]
-    }
+    },
 });
 client.on('ready', () => {
-    console.log(`Logged in as: ${client.user?.tag}`);
+    console.log(`Quebert is Logged in and ready, use (ctrl + c) to end his... life?`);
 });
 client.on('messageCreate', async (message) => {
     if (message.author.bot)
