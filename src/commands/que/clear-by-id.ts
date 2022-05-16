@@ -1,6 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import type { CommandInteraction } from "discord.js";
-import type { Command } from "../../interfaces/Command";
+import type { CmdPayload, Command } from "../../interfaces/Command";
 
 export const clearById: Command = {
   data: new SlashCommandBuilder()
@@ -10,7 +9,7 @@ export const clearById: Command = {
       .setDescription(`Find the ID in the post preview in the Mod-Only channel.`)
       .setRequired(true)
     ),
-  run: async (interaction: CommandInteraction) => {
-    await interaction.reply({ content: `Remove post: ${1}`, ephemeral: true })
+  run: async (payload: CmdPayload) => {
+    await payload.interaction.reply({ content: `Remove post: ${1}`, ephemeral: true })
   }
 }
