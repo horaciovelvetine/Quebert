@@ -14,7 +14,7 @@ export const DeployCommands = async (): Promise<Command[]> => {
     sendMsgToConsole(`Updating Quebert's application (/) commands. Brb.`)
     await rest.put(
       Routes.applicationGuildCommands(client!, guild!),
-      { body: AllSlashCommands },
+      { body: AllSlashCommands.map(c => c.data.toJSON()) },
     )
     sendMsgToConsole(`Im back and successfully updated Quebert's application (/) commands!`)
     return (AllSlashCommands)
