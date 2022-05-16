@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const discord_js_1 = require("discord.js");
 const config_1 = tslib_1.__importDefault(require("./config"));
-const commands_1 = tslib_1.__importDefault(require("./commands"));
+const deploy_commands_1 = require("./commands/deploy-commands");
 const { prefix, token } = config_1.default;
 const client = new discord_js_1.Client({
     intents: ["GUILDS", "GUILD_MESSAGES"],
@@ -15,6 +15,7 @@ const client = new discord_js_1.Client({
             }]
     },
 });
+(0, deploy_commands_1.DeployCommands)();
 client.on('ready', () => {
     console.log(`Quebert is Logged in and ready, use (ctrl + c) to end his... life?`);
 });
@@ -35,11 +36,6 @@ client.on('messageCreate', async (message) => {
                     await message.channel.send(args.join(' '));
                 else
                     await message.reply('You did not send a message to repeat, cancelling command.');
-                break;
-            case 'help':
-                const embed = (0, commands_1.default)(message);
-                embed.setThumbnail(client.user.displayAvatarURL());
-                await message.channel.send({ embeds: [embed] });
                 break;
         }
     }
