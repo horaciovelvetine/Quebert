@@ -1,8 +1,9 @@
-import { Client } from 'discord.js';
+import { Client, Collection } from 'discord.js';
 import config from './config';
-import helpCommand from './commands';
+import { DeployCommands } from './commands/index';
 
-const { prefix, token } = config;
+const { token } = config;
+let COMMANDS = new Collection(); 
 
 const client = new Client({
   intents: ["GUILDS", "GUILD_MESSAGES"],
@@ -16,37 +17,18 @@ const client = new Client({
 });
 
 
+DeployCommands()
 
 client.on('ready', () => {
-  console.log(`Quebert is Logged in and ready, use (ctrl + c) to end his... life?`);
+  console.log(`Quebert is Logged in and ready, use (ctrl + c) to end this process.`);
 });
 
-client.on('messageCreate', async (message) => {
-  if (message.author.bot) return;
-  
-  if (message.content.startsWith(prefix)) {
-    const args = message.content.slice(prefix.length).split(' ');
-    const command = args.shift();
+client.on('interactionCreate', async (interaction) => {
+  // if @Quebert should run reply with some helpful info
+  // if (interaction.isCommand()) return;
+  // let command = client.
 
-    switch(command) {
-      case 'ping':
-        const msg = await message.reply('Pinging...');
-        await msg.edit(`Pong! The round trip took ${Date.now() - msg.createdTimestamp}ms.`);
-        break;
 
-      case 'say':
-      case 'repeat':
-        if (args.length > 0) await message.channel.send(args.join(' '));
-        else await message.reply('You did not send a message to repeat, cancelling command.');
-        break;
-
-      case 'help':
-        const embed = helpCommand(message);
-        embed.setThumbnail(client.user!.displayAvatarURL());
-        await message.channel.send({ embeds: [embed] });
-        break;
-    }
-  }
 });
 
 client.login(token);
