@@ -1,7 +1,8 @@
-import type { Guild } from 'discord.js'
+import type { GuildBasedChannel } from "discord.js"
+import type { APIInteractionDataResolvedChannel } from "discord-api-types/v10"
 
 export interface Post {
   id: string
-  link: string
-  target: Guild //=> should be guild!!
+  url: string
+  target: APIInteractionDataResolvedChannel | GuildBasedChannel
 }

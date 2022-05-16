@@ -30,7 +30,8 @@
     "strict": true,
     "target": "ES2021",
     "tsBuildInfoFile": "dist/.tsbuildinfo",
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    "useUnknownInCatchVariables": false
   },
   "include": ["src"]
 }
