@@ -3,7 +3,7 @@ import config from './config';
 import { DeployCommands } from './commands/index';
 
 const { token } = config;
-let COMMANDS = new Collection(); 
+let COMMANDS = new Collection();
 
 const client = new Client({
   intents: ["GUILDS", "GUILD_MESSAGES"],
@@ -24,9 +24,17 @@ client.on('ready', () => {
 });
 
 client.on('interactionCreate', async (interaction) => {
-  // if @Quebert should run reply with some helpful info
-  // if (interaction.isCommand()) return;
-  // let command = client.
+
+  if (!interaction.isCommand()) return;
+  let command: any = COMMANDS.get(interaction.commandName)
+  if (!command) return;
+
+  try {
+    await command.execute(interaction);
+  } catch (err) {
+    console.error(err)
+    await interaction.reply({ content: 'Something went wrong, try again...', ephemeral: true })
+  }
 
 
 });
