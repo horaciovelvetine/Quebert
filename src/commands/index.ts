@@ -1,6 +1,5 @@
 export { DeployCommands } from './deploy-commands';
-import { Status } from './info/status';
+import type { Command } from '../interfaces/Command';
+import { status } from './info/status';
 
-
-//? Exports all commands (exce! DeployCommands() )
-export default { Status }
+export const AllSlashCommands: Command[] = [status]
