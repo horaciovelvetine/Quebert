@@ -1,48 +1,47 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
-const discord_js_1 = require("discord.js");
+// config & lib
 const config_1 = tslib_1.__importDefault(require("./config"));
-const commands_1 = tslib_1.__importDefault(require("./commands"));
-const { intents, prefix, token } = config_1.default;
+const discord_js_1 = require("discord.js");
+const utils_1 = require("./utils");
+const index_1 = require("./commands/index");
+// .env vars
+const { token } = config_1.default;
+// temp (Model Candidates? Likely to change with the DB add?)
+let SlashCommands = [];
+let Channels = new discord_js_1.Collection();
+let ModOnly;
+let PostQue = { postsInQue: [], posted: [] };
+let Interval = '60000';
+function clearPostQue() {
+    PostQue.postsInQue = [];
+}
 const client = new discord_js_1.Client({
-    intents,
+    intents: ["GUILDS", "GUILD_MESSAGES"],
     presence: {
         status: 'online',
         activities: [{
-                name: `${prefix}help`,
+                name: `@me for info!`,
                 type: 'LISTENING'
             }]
-    }
+    },
 });
-client.on('ready', () => {
-    console.log(`Logged in as: ${client.user?.tag}`);
+client.on('ready', async () => {
+    SlashCommands = await (0, index_1.DeployCommands)();
+    Channels = client.guilds.cache.first().channels.cache;
+    ModOnly = Channels.find((c) => c.name === 'moderator-only');
+    (0, utils_1.sendMsgToConsole)(`Quebert is Logged in and ready, use (ctrl + c) to end this process.`);
 });
-client.on('messageCreate', async (message) => {
-    if (message.author.bot)
-        return;
-    if (message.content.startsWith(prefix)) {
-        const args = message.content.slice(prefix.length).split(' ');
-        const command = args.shift();
-        switch (command) {
-            case 'ping':
-                const msg = await message.reply('Pinging...');
-                await msg.edit(`Pong! The round trip took ${Date.now() - msg.createdTimestamp}ms.`);
-                break;
-            case 'say':
-            case 'repeat':
-                if (args.length > 0)
-                    await message.channel.send(args.join(' '));
-                else
-                    await message.reply('You did not send a message to repeat, cancelling command.');
-                break;
-            case 'help':
-                const embed = (0, commands_1.default)(message);
-                embed.setThumbnail(client.user.displayAvatarURL());
-                await message.channel.send({ embeds: [embed] });
-                break;
+client.on('interactionCreate', async (interaction) => {
+    if (interaction.isCommand()) {
+        for (const Command of SlashCommands) {
+            if (interaction.commandName === Command.data.name) {
+                await Command.run({ interaction, PostQue, ModOnly, Interval, clearPostQue });
+            }
         }
     }
 });
+setInterval(utils_1.SendPostsFromQue, parseInt(Interval), { PostQue, client });
 client.login(token);
 //# sourceMappingURL=index.js.map

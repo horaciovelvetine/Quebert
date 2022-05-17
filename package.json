@@ -2,10 +2,10 @@
   "name": "discordjs-starter",
   "version": "0.0.2-a",
   "description": "Quebert: A bot built for the MetaIntro Discord community",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "nodemon dist/index.js"
   },
   "keywords": [],
   "author": "@horaciovelvetine",
@@ -13,9 +13,14 @@
   "dependencies": {
     "@discordjs/builders": "^0.13.0",
     "@discordjs/rest": "^0.4.1",
+    "@types/node": "^17.0.33",
     "discord-api-types": "^0.32.1",
     "discord.js": "^13.6.0",
+    "dotenv": "^16.0.1",
     "tslib": "^2.3.1",
     "typescript": "^4.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
   }
 }

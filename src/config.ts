@@ -1,10 +1,7 @@
-import { Intents } from 'discord.js';
+import 'dotenv/config'
 
 export default {
-  prefix: '!',
   token: process.env.DISCORD_TOKEN,
-  intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES
-  ]
+  client: process.env.CLIENT_ID,
+  guild: process.env.GUILD_ID
 }
