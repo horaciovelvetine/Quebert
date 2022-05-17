@@ -32,7 +32,7 @@ export const q: Command = {
     // #15141d , #4d2f72 , #621c44 , #3d152c , #59a8bd, #302844 , #15141d , '#6064a8'
 
 
-    payload.ModOnly.send({ embeds: [modOnlyPreview] })
+  payload.ModOnly.send({ embeds: [modOnlyPreview], content: `Posts In Que: ${payload.PostQue.postsInQue.length}` })
     await payload.interaction.reply({ content: 'Message added to Que', ephemeral: true })
 
 
