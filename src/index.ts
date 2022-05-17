@@ -4,7 +4,6 @@ import { Client, Interaction, Collection } from 'discord.js';
 import { sendMsgToConsole, SendPostsFromQue } from './utils';
 import { DeployCommands } from './commands/index';
 import type { Command, PostQue } from './interfaces/'
-// import type { Collection as DisCollection } from 'discord.js';
 
 // .env vars
 const { token } = config;
@@ -14,11 +13,10 @@ let SlashCommands: Command[] = []
 let Channels = new Collection()
 let ModOnly: any
 let PostQue: PostQue = { postsInQue: [], posted: [] }
-let Interval: string = '100000'
+let Interval: string = '60000'
 
 function clearPostQue(){
-  let newQue = {...PostQue}
-  newQue.postsInQue = []
+  PostQue.postsInQue = []
 }
 
 const client: Client = new Client({
@@ -50,6 +48,6 @@ client.on('interactionCreate', async (interaction: Interaction) => {
   }
 })
 
-setInterval(SendPostsFromQue, parseInt(Interval), { PostQue, client })
+setInterval(SendPostsFromQue, parseInt(Interval), { PostQue, client})
 
 client.login(token);

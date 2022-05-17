@@ -6,16 +6,17 @@ const config_1 = tslib_1.__importDefault(require("./config"));
 const discord_js_1 = require("discord.js");
 const utils_1 = require("./utils");
 const index_1 = require("./commands/index");
-// import type { Collection as DisCollection } from 'discord.js';
 // .env vars
 const { token } = config_1.default;
 // temp (Model Candidates? Likely to change with the DB add?)
 let SlashCommands = [];
 let Channels = new discord_js_1.Collection();
-let PostQue = {
-    postsInQue: [], posted: [],
-};
-let Interval = 10000;
+let ModOnly;
+let PostQue = { postsInQue: [], posted: [] };
+let Interval = '60000';
+function clearPostQue() {
+    PostQue.postsInQue = [];
+}
 const client = new discord_js_1.Client({
     intents: ["GUILDS", "GUILD_MESSAGES"],
     presence: {
@@ -29,17 +30,18 @@ const client = new discord_js_1.Client({
 client.on('ready', async () => {
     SlashCommands = await (0, index_1.DeployCommands)();
     Channels = client.guilds.cache.first().channels.cache;
+    ModOnly = Channels.find((c) => c.name === 'moderator-only');
     (0, utils_1.sendMsgToConsole)(`Quebert is Logged in and ready, use (ctrl + c) to end this process.`);
 });
 client.on('interactionCreate', async (interaction) => {
     if (interaction.isCommand()) {
         for (const Command of SlashCommands) {
             if (interaction.commandName === Command.data.name) {
-                await Command.run({ interaction, PostQue, Channels, Interval });
+                await Command.run({ interaction, PostQue, ModOnly, Interval, clearPostQue });
             }
         }
     }
 });
-setInterval(utils_1.SendPostsFromQue, Interval, { PostQue, client });
+setInterval(utils_1.SendPostsFromQue, parseInt(Interval), { PostQue, client });
 client.login(token);
 //# sourceMappingURL=index.js.map
