@@ -5,9 +5,10 @@ import type { PostQue } from './PostQue';
 export interface CmdPayload {
   interaction: CommandInteraction
   PostQue: PostQue
-  ModOnly: any
+  Channels: any
+  Interval: number
 }
 export interface Command {
   data: Omit<SlashCommandBuilder, "addSubcommandGroup" | "addSubcommand">;
-  run: ({}:CmdPayload) => Promise<void>;
+  run: ({ }: CmdPayload) => Promise<void>;
 }
