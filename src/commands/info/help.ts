@@ -6,6 +6,8 @@ export const help: Command = {
     .setName('help')
     .setDescription('Helpful information about using Quebert and his features'),
   run: async (payload: CmdPayload) => {
-    await payload.interaction.reply({ content: 'This is a helpful message', ephemeral: true })
+
+    payload.ModOnly.send({content: `${payload.interaction.user} asked for help`})
+    await payload.interaction.reply({ content: 'This (will be) is a helpful message', ephemeral: true })
   }
 }

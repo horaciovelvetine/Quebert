@@ -6,6 +6,7 @@ export const clear: Command = {
     .setName('clear-all')
     .setDescription(`Clears all posts that are currently in the que`),
   run: async (payload: CmdPayload) => {
-    await payload.interaction.reply({ content: 'Gonna add stuff to the Que.... later', ephemeral: true })
+    payload.clearPostQue()
+    await payload.interaction.reply({ content: `${payload.interaction.user.username} cleared all posts from the Que!`, ephemeral: true })
   }
 }

@@ -6,7 +6,7 @@ export const status: Command = {
     .setName('status')
     .setDescription(`Ask Quebert what hes got going on behind the scenes`),
   run: async (payload: CmdPayload) => {
-    await payload.interaction.reply({ content: `Honestly... feeling good, as you can see looking good, ready to go!`, ephemeral: true })
+    await payload.interaction.reply({ content: `Posts in Que: ${payload.PostQue.postsInQue.length} // Interval Time (ms): ${payload.Interval}.`, ephemeral: true })
   }
 
 }

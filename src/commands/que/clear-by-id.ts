@@ -10,6 +10,11 @@ export const clearById: Command = {
       .setRequired(true)
     ),
   run: async (payload: CmdPayload) => {
+    let targetId = payload.interaction.options.getString('post-id')
+    let filteredQue = payload.PostQue.postsInQue.filter(post => post.id !== targetId)
+
+    payload.PostQue.postsInQue = filteredQue
+    payload.ModOnly.send({ content: `Post: ${targetId} removed from Que by: ${payload.interaction.user.username}` })
     await payload.interaction.reply({ content: `Remove post: ${1}`, ephemeral: true })
   }
 }
