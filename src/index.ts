@@ -13,7 +13,7 @@ let SlashCommands: Command[] = []
 let Channels = new Collection()
 let ModOnly: any
 let PostQue: PostQue = { postsInQue: [], posted: [] }
-let Interval: string = '60000'
+let Interval: string = '900000'
 
 function clearPostQue(){
   PostQue.postsInQue = []
