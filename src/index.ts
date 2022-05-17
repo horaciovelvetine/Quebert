@@ -14,8 +14,12 @@ let SlashCommands: Command[] = []
 let Channels = new Collection()
 let ModOnly: any
 let PostQue: PostQue = { postsInQue: [], posted: [] }
-let Interval: number = 10000
+let Interval: string = '100000'
 
+function clearPostQue(){
+  let newQue = {...PostQue}
+  newQue.postsInQue = []
+}
 
 const client: Client = new Client({
   intents: ["GUILDS", "GUILD_MESSAGES"],
@@ -40,12 +44,12 @@ client.on('interactionCreate', async (interaction: Interaction) => {
     for (const Command of SlashCommands) {
       if (interaction.commandName === Command.data.name) {
 
-        await Command.run({ interaction, PostQue, Channels, Interval })
+        await Command.run({ interaction, PostQue, ModOnly, Interval, clearPostQue })
       }
     }
   }
 })
 
-setInterval(SendPostsFromQue, Interval, { PostQue, client })
+setInterval(SendPostsFromQue, parseInt(Interval), { PostQue, client })
 
 client.login(token);
