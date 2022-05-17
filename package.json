@@ -1,8 +1,8 @@
 {
   "name": "discordjs-starter",
-  "version": "0.0.2-a",
+  "version": "0.0.2-a-rep-dep",
   "description": "Quebert: A bot built for the MetaIntro Discord community",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
     "build": "tsc",
     "start": "nodemon dist/index.js"
@@ -18,7 +18,8 @@
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.1",
     "tslib": "^2.3.1",
-    "typescript": "^4.6.2"
+    "typescript": "^4.6.2",
+    "update": "^0.7.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
