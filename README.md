@@ -1,4 +1,4 @@
-#Quebert
+# Quebert
 A Discord bot built for the MetaIntro community: https://discord.gg/CcdNdq3YbT
 
 ## Summary
