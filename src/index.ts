@@ -1,46 +1,41 @@
 // config & lib
 import config, {clientDetails} from './config';
-import { Client, Interaction, Collection } from 'discord.js';
-import { sendMsgToConsole, SendPostsFromQue } from './utils';
-import { DeployCommands } from './commands/index';
-import type { Command, PostQue } from './interfaces/'
+import { Client, Interaction } from 'discord.js';
+import { sendMsgToConsole } from './utils';
+import { DeployCommands } from './commands';
+import type { Command } from './interfaces'
+const Database = require("@replit/database")
 
-// .env vars
+
 const { token } = config;
 
-let standInDb = [{interval: '60000'}, {stats: {}}, {que: []}]
+const db:any = new Database()
 
-// temp (Model Candidates? Likely to change with the DB add?)
+db.set("interval", "5000");
+db.set("que", []);
+db.set("stats", {"totalPostsMade": 0, "channelsPostsMade": []});
+
 let SlashCommands: Command[] = []
-let Channels = new Collection()
-let ModOnly: any
-let PostQue: PostQue = { postsInQue: [] }
-let Interval: string = '60000'
-
-function clearPostQue(){
-  PostQue.postsInQue = []
-}
-
 const client: Client = new Client(clientDetails());
 
 client.on('ready', async () => {
   SlashCommands = await DeployCommands()
-  Channels = client.guilds.cache.first()!.channels.cache
-  ModOnly = Channels.find((c) => c.name! === 'moderator-only')
   sendMsgToConsole(`Quebert is Logged in and ready, use (ctrl + c) to end this process.`);
+  console.log(db.list().then(k => console.log(k)))
 });
 
 client.on('interactionCreate', async (interaction: Interaction) => {
+  
   if (interaction.isCommand()) {
     for (const Command of SlashCommands) {
       if (interaction.commandName === Command.data.name) {
 
-        await Command.run({ interaction, PostQue, ModOnly, Interval, clearPostQue })
+        await Command.run({interaction, db})
       }
     }
   }
 })
 
-setInterval(SendPostsFromQue, parseInt(Interval), { PostQue, client})
+// setInterval(SendPostsFromQue, parseInt(Interval), { PostQue, client})
 
 client.login(token);
