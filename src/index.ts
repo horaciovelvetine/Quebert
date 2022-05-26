@@ -1,5 +1,5 @@
 // config & lib
-import config from './config';
+import config, {clientDetails} from './config';
 import { Client, Interaction, Collection } from 'discord.js';
 import { sendMsgToConsole, SendPostsFromQue } from './utils';
 import { DeployCommands } from './commands/index';
@@ -7,6 +7,8 @@ import type { Command, PostQue } from './interfaces/'
 
 // .env vars
 const { token } = config;
+
+let standInDb = [{interval: '60000'}, {stats: {}}, {que: []}]
 
 // temp (Model Candidates? Likely to change with the DB add?)
 let SlashCommands: Command[] = []
@@ -19,16 +21,7 @@ function clearPostQue(){
   PostQue.postsInQue = []
 }
 
-const client: Client = new Client({
-  intents: ["GUILDS", "GUILD_MESSAGES"],
-  presence: {
-    status: 'online',
-    activities: [{
-      name: `@me for info!`,
-      type: 'LISTENING'
-    }]
-  },
-});
+const client: Client = new Client(clientDetails());
 
 client.on('ready', async () => {
   SlashCommands = await DeployCommands()
