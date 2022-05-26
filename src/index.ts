@@ -12,7 +12,7 @@ const { token } = config;
 let SlashCommands: Command[] = []
 let Channels = new Collection()
 let ModOnly: any
-let PostQue: PostQue = { postsInQue: [], posted: [] }
+let PostQue: PostQue = { postsInQue: [] }
 let Interval: string = '60000'
 
 function clearPostQue(){
