@@ -1,5 +1,6 @@
 //dev 
 export { sendAlertToConsole } from './dev/sendAlertToConsole'
-export { DeployCommands } from './dev/DeployCommands'
 export { NotificationEmbedBuilder } from './dev/NotificationEmbedBuilder'
 export { ModOnlyGuild } from './ModOnlyGuild'
+export { requestUrl } from './api/requestUrlFormatter'
+export { DeployCommands } from '../commands/DeployCommands' //odd place for this...
