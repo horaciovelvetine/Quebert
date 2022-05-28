@@ -18,7 +18,7 @@ export const DeployCommands = async (): Promise<Command[]> => {
       //! { body: AllSlashCommands.map(c => c.data.toJSON()) },
     )
     sendAlertToConsole(`Im back and successfully updated Quebert's application (/) commands!`)
-    return ([]) //! should be an array of commands, but this may be optional
+    return ([]) //! should be an array of commands, not optional
   } catch (error) {
     console.error(error)
   }
