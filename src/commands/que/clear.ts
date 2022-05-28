@@ -2,9 +2,9 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 
 //types
 import type { CommandInteraction } from 'discord.js'
-import type { Command } from "../../interfaces/_index";
+import type { CommandSubCommand } from "../../interfaces/_index";
 
-export const clear: Command = {
+export const clear: CommandSubCommand = {
   data: new SlashCommandBuilder()
     .setName('clear')
     .setDescription('Remove posts from the Queue by: ID, Last Added, or All')
