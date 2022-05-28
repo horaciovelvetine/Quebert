@@ -1,4 +1,4 @@
-export const sendMsgToConsole = (msg: string) => {
+export const sendAlertToConsole = (msg: string) => {
   console.log(' ')
   console.log(`================================================================`)
   console.log(' ')

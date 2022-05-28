@@ -3,7 +3,6 @@ import type { CommandInteraction } from 'discord.js'
 
 export interface CmdPayload {
   interaction: CommandInteraction
-  db: any
 }
 export interface Command {
   data: Omit<SlashCommandBuilder, "addSubcommandGroup" | "addSubcommand">;
