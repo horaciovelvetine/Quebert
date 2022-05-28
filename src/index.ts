@@ -8,7 +8,7 @@ const { token } = config;
 
 const client: Client = new Client(clientDetails());
 
-// on ready builds all working slash commands
+// on ready builds all slash commands
 let SlashCommands: Command[] = []
 client.on('ready', async () => {
   SlashCommands = await DeployCommands()
