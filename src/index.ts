@@ -14,7 +14,7 @@ console.log(baseUrl)
 
 client.on('ready', async () => {
   SlashCommands = await DeployCommands()
-  
+
   sendAlertToConsole(`Quebert is Logged in and ready, use (ctrl + c) to end this process.`);
 });
 
@@ -23,8 +23,12 @@ client.on('interactionCreate', async (interaction: Interaction) => {
   if (interaction.isCommand()) {
     for (const Command of SlashCommands) {
       if (interaction.commandName === Command.data.name) {
-        await Command.run({ interaction })
-
+        try {
+          await Command.run({ interaction })
+        } catch (err) {
+          interaction.reply({ content: err, ephemeral: true })
+          sendAlertToConsole('Command execution failed, please try again')
+        }
       }
     }
   }
