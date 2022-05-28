@@ -5,6 +5,7 @@ export default {
   token: process.env.DISCORD_TOKEN,
   client: process.env.CLIENT_ID,
   guild: process.env.GUILD_ID,
+  baseUrl: process.env.BASE_URL
 }
 
 export const clientDetails = (): ClientOptions => {

@@ -1,17 +1,20 @@
 // config & lib
-import config, { clientDetails } from './config';
+import config, { clientDetails } from './utils/dev/config';
 import { Client, Interaction } from 'discord.js';
 import { sendAlertToConsole, DeployCommands } from './utils/_index';
 import type { Command } from './interfaces/_index'
 
 
 
-const { token } = config;
+const { token, baseUrl } = config;
 let SlashCommands: Command[] = []
 const client: Client = new Client(clientDetails());
 
+console.log(baseUrl)
+
 client.on('ready', async () => {
   SlashCommands = await DeployCommands()
+  
   sendAlertToConsole(`Quebert is Logged in and ready, use (ctrl + c) to end this process.`);
 });
 
