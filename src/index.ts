@@ -4,17 +4,14 @@ import { Client, Interaction } from 'discord.js';
 import { sendAlertToConsole, DeployCommands } from './utils/_index';
 import type { Command } from './interfaces/_index'
 
+const { token } = config;
 
-
-const { token, baseUrl } = config;
-let SlashCommands: Command[] = []
 const client: Client = new Client(clientDetails());
 
-console.log(baseUrl)
-
+// on ready builds all working slash commands
+let SlashCommands: Command[] = []
 client.on('ready', async () => {
   SlashCommands = await DeployCommands()
-
   sendAlertToConsole(`Quebert is Logged in and ready, use (ctrl + c) to end this process.`);
 });
 
@@ -24,7 +21,7 @@ client.on('interactionCreate', async (interaction: Interaction) => {
     for (const Command of SlashCommands) {
       if (interaction.commandName === Command.data.name) {
         try {
-          await Command.run({ interaction })
+          await Command.run(interaction)
         } catch (err) {
           interaction.reply({ content: err, ephemeral: true })
           sendAlertToConsole('Command execution failed, please try again')
