@@ -10,3 +10,5 @@ export interface CommandSubCommand {
   data: SlashCommandSubcommandsOnlyBuilder | SlashCommandBuilder;
   run: (interaction: CommandInteraction) => Promise<void>;
 }
+
+export type CombinedCommands = Command | CommandSubCommand;
