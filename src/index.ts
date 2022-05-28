@@ -3,30 +3,19 @@ import config, {clientDetails} from './config';
 import { Client, Interaction, Collection } from 'discord.js';
 import { sendMsgToConsole, SendPostsFromQue } from './utils';
 import { DeployCommands } from './commands/index';
-import type { Command, PostQue } from './interfaces/'
+import type { Command } from './interfaces\'
 
 // .env vars
 const { token } = config;
 
-let standInDb = [{interval: '60000'}, {stats: {}}, {que: []}]
 
 // temp (Model Candidates? Likely to change with the DB add?)
 let SlashCommands: Command[] = []
-let Channels = new Collection()
-let ModOnly: any
-let PostQue: PostQue = { postsInQue: [] }
-let Interval: string = '60000'
-
-function clearPostQue(){
-  PostQue.postsInQue = []
-}
 
 const client: Client = new Client(clientDetails());
 
 client.on('ready', async () => {
   SlashCommands = await DeployCommands()
-  Channels = client.guilds.cache.first()!.channels.cache
-  ModOnly = Channels.find((c) => c.name! === 'moderator-only')
   sendMsgToConsole(`Quebert is Logged in and ready, use (ctrl + c) to end this process.`);
 });
 
@@ -35,12 +24,11 @@ client.on('interactionCreate', async (interaction: Interaction) => {
     for (const Command of SlashCommands) {
       if (interaction.commandName === Command.data.name) {
 
-        await Command.run({ interaction, PostQue, ModOnly, Interval, clearPostQue })
+        await Command.run({ interaction })
       }
     }
   }
 })
 
-setInterval(SendPostsFromQue, parseInt(Interval), { PostQue, client})
 
 client.login(token);
