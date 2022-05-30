@@ -1,17 +1,24 @@
-import axios from "axios"
-import { requestUrl } from "./requestUrlFormatter"
+import axios from 'axios';
+import { requestUrl } from './requestUrlFormatter';
+
+import type { GetCommandResponseData } from '../../interfaces/_index';
 
 type GetCommandProps = {
-  name: string
-  payload: string
-}
+	name: string;
+	payload: string;
+};
 
-export const GetCommand = async (command: GetCommandProps): Promise<any> => {
-  try {
-    return await axios.get(requestUrl(`/command/${command.name}/${command.payload}`))
-      .then(res => { return res })
-      .catch(err => { return err })
-  } catch (err) {
-    return err
-  }
-}
+export const GetCommand = async (command: GetCommandProps): Promise<GetCommandResponseData> => {
+	try {
+		return await axios
+			.get(requestUrl(`/command/${command.name}/${command.payload}`))
+			.then((res) => {
+				return res.data;
+			})
+			.catch((err) => {
+				return err;
+			});
+	} catch (err) {
+		return err;
+	}
+};
