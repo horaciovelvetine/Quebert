@@ -1,2 +1,2 @@
 export { Command, CommandSubCommand, CombinedCommands } from './Command';
-export { StatusResponseData, GetCommandResponseData } from './api';
+export { StatusResponseData, GetCommandResponseData, QueResponseData } from './api';
