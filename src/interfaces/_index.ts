@@ -1,1 +1,1 @@
-export { Command, CommandSubCommand } from './Command';
+export { Command, CommandSubCommand, CombinedCommands } from './Command';

@@ -1,9 +1,8 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
 import { NotificationEmbedBuilder, ModOnlyGuild } from "../../utils/_index";
+import { SlashCommandBuilder } from "@discordjs/builders";
 
 import type { CommandInteraction } from 'discord.js'
 import type { Command } from "../../interfaces/_index";
-
 
 
 export const que: Command = {
