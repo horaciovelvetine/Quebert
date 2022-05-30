@@ -1,4 +1,4 @@
-import { NotificationEmbedBuilder, ModOnlyGuild } from '../../utils/_index';
+import { NotificationEmbedBuilder, ModOnlyGuild, PostCommand } from '../../utils/_index';
 import { SlashCommandBuilder } from '@discordjs/builders';
 
 import type { CommandInteraction } from 'discord.js';
@@ -15,14 +15,14 @@ export const que: Command = {
 			opt.setName('msg-body').setDescription('The message body you want to send').setRequired(true)
 		),
 	run: async (interaction: CommandInteraction) => {
-		let targetGuild = interaction.options.getChannel('target-channel')!;
-		let msgBody = interaction.options.getString('msg-body')!;
-		const addPost = { id: interaction.id, body: msgBody, targetGuild: targetGuild };
+		const targetGuild = interaction.options.getChannel('target-channel')!;
+		const msgBody = interaction.options.getString('msg-body')!;
+		const newPostInfo = { id: interaction.id, body: msgBody, targetGuild: targetGuild };
+		let response = await PostCommand({name: 'que', payload: newPostInfo});
+		// const modEmbedPreview = NotificationEmbedBuilder(interaction, newPostInfo);
 
-		let modEmbedPreview = NotificationEmbedBuilder(interaction, addPost);
-
-		await ModOnlyGuild(interaction)!.send({ embeds: [modEmbedPreview] });
-
-		interaction.reply({ content: 'Message added to Que', ephemeral: true });
+		console.log(response)
+		// ModOnlyGuild(interaction)!.send({ embeds: [modEmbedPreview] });
+		// interaction.reply({ content: 'Message added to Que', ephemeral: true });
 	},
 };
