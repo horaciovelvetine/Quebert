@@ -12,7 +12,7 @@ const client: Client = new Client(clientDetails());
 let SlashCommands: CombinedCommands[] = [];
 client.on('ready', async () => {
 	SlashCommands = await DeployCommands();
-	sendAlertToConsole(`Quebert is Logged in and ready, use (ctrl + c) to end this process.`);
+	sendAlertToConsole(`Quebert is Logged in and ready`);
 });
 
 client.on('interactionCreate', async (interaction: Interaction) => {
