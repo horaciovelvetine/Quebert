@@ -1,6 +1,4 @@
-import type { CombinedCommands } from '../interfaces/Command'
-import { clear, que, setInterval, status } from './que/_index'
-
-
+import type { CombinedCommands } from '../interfaces/_index'
+import { clear, que, setInterval, status } from './que/'
 
 export const AllSlashCommands: CombinedCommands[] = [clear, que, setInterval, status]
