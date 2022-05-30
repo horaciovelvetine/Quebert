@@ -11,16 +11,17 @@ const {token, client, guild} = config;
 const rest = new REST({ version: '9' }).setToken(token!);
 
 export const DeployCommands = async (): Promise<CombinedCommands[]> => {
-    console.log(token, client, guild)
+  
   try {
-    sendAlertToConsole(`Updating Quebert's application (/) commands. Brb.`)
+    sendAlertToConsole(`Updating Quebert's slash (/) commands...`)
     await rest.put(
       Routes.applicationGuildCommands(client!, guild!),
       { body: AllSlashCommands.map(c => c.data.toJSON()) }
     )
-    
+    sendAlertToConsole(`Commands successfully updated.`)
     return(AllSlashCommands)
   } catch (error) {
+    console.log(AllSlashCommands)
     console.log(error)
   }
   return(AllSlashCommands)
