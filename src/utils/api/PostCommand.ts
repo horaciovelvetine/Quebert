@@ -10,7 +10,7 @@ export const PostCommand = async (command: PostCommandProps) => {
 		return await axios
 			.post(requestUrl(`/command/${command.name}/${command.payload}`), command)
 			.then((res) => {
-				return res;
+				return res.data;
 			})
 			.catch((err) => {
 				return err;
