@@ -1,7 +1,7 @@
-import config from '../dev/config'
+import config from '../dev/config';
 
-let { baseUrl } = config
+let { baseUrl } = config;
 
 export const requestUrl = (route: string): string => {
-  return (baseUrl + route)
-}
+	return baseUrl + route;
+};
