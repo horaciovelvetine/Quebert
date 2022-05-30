@@ -20,9 +20,9 @@ export const que: Command = {
       let msgBody = (interaction.options.getString('msg-body')!)
       const addPost = { id: interaction.id, body: msgBody, targetGuild: targetGuild }
 
-      let modEmbedPreviw = NotificationEmbedBuilder(interaction, addPost) 
+      let modEmbedPreview = NotificationEmbedBuilder(interaction, addPost) 
 
-      await ModOnlyGuild(interaction)!.send({embeds: [modEmbedPreviw]})
+      await ModOnlyGuild(interaction)!.send({embeds: [modEmbedPreview]})
 
       interaction.reply({content: 'Message added to Que', ephemeral: true})
     }
