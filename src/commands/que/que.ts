@@ -18,11 +18,10 @@ export const que: Command = {
 		const targetGuild = interaction.options.getChannel('target-channel')!;
 		const msgBody = interaction.options.getString('msg-body')!;
 		const newPostInfo = { id: interaction.id, body: msgBody, targetGuild: targetGuild };
-		let response = await PostCommand({name: 'que', payload: newPostInfo});
-		// const modEmbedPreview = NotificationEmbedBuilder(interaction, newPostInfo);
+		let response = await PostCommand({ name: 'que', payload: newPostInfo });
+		const modEmbedPreview = NotificationEmbedBuilder(interaction, newPostInfo);
 
-		console.log(response)
-		// ModOnlyGuild(interaction)!.send({ embeds: [modEmbedPreview] });
-		// interaction.reply({ content: 'Message added to Que', ephemeral: true });
+		ModOnlyGuild(interaction)!.send({ embeds: [modEmbedPreview] });
+		interaction.reply({ content: `${response.message}`, ephemeral: true });
 	},
 };
