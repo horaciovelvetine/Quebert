@@ -22,8 +22,7 @@ client.on('interactionCreate', async (interaction: Interaction) => {
 				try {
 					await Command.run(interaction);
 				} catch (err) {
-					interaction.reply({ content: err, ephemeral: true });
-					sendAlertToConsole('Command execution failed, please try again');
+					interaction.reply({ content: `${err}`, ephemeral: true });
 				}
 			}
 		}
