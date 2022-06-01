@@ -11,7 +11,7 @@ type GetCommandProps = {
 export const GetCommand = async (command: GetCommandProps): Promise<GetCommandResponseData> => {
 	try {
 		return await axios
-			.get(requestUrl(`/command/${command.name}/${command.payload}`))
+			.get(requestUrl(`/command/${command.name}`))
 			.then((res) => {
 				return res.data;
 			})
