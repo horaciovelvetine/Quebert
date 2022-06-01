@@ -1,3 +1,3 @@
 export { StatusResponseData } from './StatusResponseData';
 export { GetCommandResponseData } from './GetCommandResponseData';
-export { QueResponseData } from './QueResponseData';
+export { QueResponseData, QueRoutineResponseData, QuePostInfo } from './QueResponseData';
