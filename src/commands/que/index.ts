@@ -1,6 +1,6 @@
-export { clearAll } from './clearAll';
+export { clearQue } from './clearQue';
 export { clearLast } from './clearLast';
-export { clearById } from './clearByID';
+export { clearPost } from './clearPost';
 export { que } from './que';
 export { setInterval } from './setInterval';
 export { status } from './status';
