@@ -18,7 +18,7 @@ export const que: Command = {
 
 		const response = await PostCommand({
 			name: 'que',
-			payload: { id: interaction.id, body: msgBody, targetGuild: targetGuild },
+			payload: { id: interaction.id, body: msgBody, target_channel: targetGuild },
 		});
 		let modEmbedPreview = QueResponseEmbed(interaction, response);
 		ModOnlyGuild(interaction)?.send({ embeds: [modEmbedPreview] });

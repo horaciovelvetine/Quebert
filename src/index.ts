@@ -19,7 +19,7 @@ client.on('ready', async () => {
 	>;
 	InitializeGuilds(Guilds);
 	SlashCommands = await DeployCommands();
-	// PostQueRoutine(Guilds)
+	PostQueRoutine(Guilds)
 	sendAlertToConsole(`Quebert is Logged in and ready`);
 });
 
