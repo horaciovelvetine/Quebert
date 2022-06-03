@@ -30,28 +30,22 @@ export const PostQueRoutine = (Guilds: Collection<string, TextChannel>) => {
 					return error;
 				});
 			queResponse.postsToSend.forEach((post: PostToSend) => {
-				
+				Guilds.get(post.text_channel_id)?.send({content: post.body})
 			});
 			Guilds.get(mod)!.send({ embeds: [successNoticeEmbed(queResponse.message)] });
 		} catch (error) {
 			Guilds.get(mod)!.send({ embeds: [errorNoticeEmbed(error)] });
 		}
 	};
-	setTimeout(routine, 180000)
-	// setInterval(routine, defaultInterval);
+	// setTimeout(routine, 60000)
+	setInterval(routine, defaultInterval);
 };
 
 interface PostToSend {
-	guild_id: number;
+	text_channel_id: string;
 	status: PostStatus;
-	id: number;
+	id: string;
 	body: string;
-	total_interactions: number;
-	chat_responses: number;
-	total_clicks: number;
-	bot_id: number;
-	created_at: string;
-	updated_at: string;
 }
 
 type PostStatus = 'in-que' | 'sent';
