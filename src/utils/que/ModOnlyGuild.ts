@@ -1,4 +1,4 @@
-import config from './dev/config';
+import config from '../dev/config';
 import type { CommandInteraction, TextChannel } from 'discord.js';
 
 let { mod } = config;

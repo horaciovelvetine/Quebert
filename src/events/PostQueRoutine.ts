@@ -37,7 +37,6 @@ export const PostQueRoutine = (Guilds: Collection<string, TextChannel>) => {
 			Guilds.get(mod)!.send({ embeds: [errorNoticeEmbed(error)] });
 		}
 	};
-	// setTimeout(routine, 60000)
 	setInterval(routine, defaultInterval);
 };
 

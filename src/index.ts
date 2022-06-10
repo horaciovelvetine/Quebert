@@ -17,7 +17,7 @@ client.on('ready', async () => {
 		string,
 		TextChannel
 	>;
-	InitializeGuilds(Guilds);
+	await InitializeGuilds(Guilds);
 	SlashCommands = await DeployCommands();
 	PostQueRoutine(Guilds)
 	sendAlertToConsole(`Quebert is Logged in and ready`);
