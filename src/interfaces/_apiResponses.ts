@@ -1,24 +1,13 @@
 //? DIFF PAYLOAD RESPONSE TYPE-ING
-interface statusPld {
-	total_posts: number;
-	time_to_next: string;
-	time_until_empty: string;
+interface ResponsePayloadsInt {
+	total_posts?: string,
+	time_to_next_post?: string,
+	time_to_empty?: string
+	posts?: []
 }
-
-interface addQuePld {
-	target: string; //channel name !== ID e.x. '#moderator-only'
-	post_id: string;
-	body: string;
-}
-
-interface queRoutinePld {
-	posts: [];
-}
-
-type ResPayloads = statusPld | addQuePld | queRoutinePld;
 
 export interface APIResponseInt {
 	message: string;
-	queue_length: number;
-	payload: ResPayloads;
+	queue_length: string;
+	payload: ResponsePayloadsInt;
 }

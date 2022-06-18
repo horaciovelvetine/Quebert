@@ -1,10 +1,9 @@
 import axios from 'axios';
-import type { CommandInteraction } from 'discord.js';
-import { baseUrlFormatter } from '.';
-import { modOnlyGuild } from '../config';
-import { errorEmbed } from '../messages';
 
-export const postSlashCommand = async (command: string, payload: any, interaction: CommandInteraction) => {
+import { baseUrlFormatter } from '.';
+import type { SlashCommandRequestInt } from '../interfaces';
+
+export const postSlashCommand = async ({ command, payload }: SlashCommandRequestInt) => {
 	try {
 		return await axios
 			.post(baseUrlFormatter(`/slash-command/${command}`), payload)
@@ -12,9 +11,9 @@ export const postSlashCommand = async (command: string, payload: any, interactio
 				return response.data;
 			})
 			.catch((error) => {
-				modOnlyGuild(interaction).send({ embeds: [errorEmbed(error, interaction.user.username)] });
+				return error;
 			});
 	} catch (error) {
-		modOnlyGuild(interaction).send({ embeds: [errorEmbed(error, interaction.user.username)] });
+		return error;
 	}
 };
