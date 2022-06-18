@@ -20,7 +20,11 @@ export const que: SlashCommandInt = {
 
 		const response = await postSlashCommand({
 			command: 'que',
-			payload: { id: interaction.id, body: msgBody, target_channel: targetGuild },
+			payload: {
+				id: interaction.id,
+				body: msgBody,
+				target_channel: targetGuild,
+			},
 		});
 		let modEmbedPreview = addQueEmbed(interaction, response);
 		modOnlyGuild(interaction)?.send({ embeds: [modEmbedPreview] });

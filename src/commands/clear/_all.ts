@@ -15,7 +15,7 @@ export const clearAll: SlashCommandInt = {
 				.setRequired(true)
 		),
 	run: async (interaction: CommandInteraction) => {
-		let clearResponse = await postSlashCommand({ command: 'clear', payload: 'all' });
+		let clearResponse = await postSlashCommand({command: 'clear', payload: 'all' });
 
 		interaction.reply({ content: `${clearResponse.message}`, ephemeral: true });
 	},
