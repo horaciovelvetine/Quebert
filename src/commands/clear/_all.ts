@@ -1,10 +1,10 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { PostCommand } from '../../utils/_index';
 
 import type { CommandInteraction } from 'discord.js';
-import type { Command } from '../../interfaces/_index';
+import { postSlashCommand } from '../../api';
+import type { SlashCommandInt } from '../../interfaces';
 
-export const clearQue: Command = {
+export const clearAll: SlashCommandInt = {
 	data: new SlashCommandBuilder()
 		.setName('clear-que')
 		.setDescription('Clear all posts from the queue.')
@@ -15,7 +15,7 @@ export const clearQue: Command = {
 				.setRequired(true)
 		),
 	run: async (interaction: CommandInteraction) => {
-		let clearResponse = await PostCommand({ name: 'clear', payload: 'all' });
+		let clearResponse = await postSlashCommand({ command: 'clear', payload: 'all' });
 
 		interaction.reply({ content: `${clearResponse.message}`, ephemeral: true });
 	},

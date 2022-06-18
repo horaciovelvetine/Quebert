@@ -2,3 +2,4 @@
 export { SlashCommandInt, SlashCommandSubCommandInt, CombinedCommandsInt } from './_commands';
 
 export { APIResponseInt } from './_apiResponses';
+export { SlashCommandRequestInt } from './_apiSlashCommandReq'

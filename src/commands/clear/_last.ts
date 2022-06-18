@@ -1,13 +1,13 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { PostCommand } from '../utils/_index';
+import { postSlashCommand } from '../../api';
 
 import type { CommandInteraction } from 'discord.js';
-import type { Command } from '../interfaces/_index';
+import type { SlashCommandInt } from '../../interfaces';
 
-export const clearLast: Command = {
+export const clearLast: SlashCommandInt = {
 	data: new SlashCommandBuilder().setName('clear-last').setDescription('Clear the last post from the queue.'),
 	run: async (interaction: CommandInteraction) => {
-		let clearResponse = await PostCommand({ name: 'clear', payload: 'last' });
+		let clearResponse = await postSlashCommand({ command: 'clear', payload: 'last' });
 
 		interaction.reply({ content: `${clearResponse.message}`, ephemeral: true });
 	},
