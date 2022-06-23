@@ -1,4 +1,4 @@
 export interface SlashCommandRequestInt {
-	command: string;
-	payload?: {};
+	command: string
+	payload: {};
 }
