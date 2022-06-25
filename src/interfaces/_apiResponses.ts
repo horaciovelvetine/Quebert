@@ -1,16 +1,20 @@
 //? DIFF PAYLOAD RESPONSE TYPE-ING
 interface ResponsePayloadsInt {
-	total_posts?: string,
-	time_of_last?: string,
-	time_to_next?: string,
-	time_to_none?: string,
-	id?: string,
-	target?: string,
-	body?: string,
+	time_of_last?: string;
+	time_to_next?: string;
+	total_queued?: string;
+	id?: string;
+	target?: string;
+	body?: string;
 	//bad news bearsville
-	posts?: any
+	posts?: PostInt[];
 }
 
+interface PostInt {
+	target: string;
+	body: string;
+	id: string;
+}
 export interface APIResponseInt {
 	message: string;
 	queue_length: string;
