@@ -1,14 +1,18 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js';
-import type { APIResponseInt } from '../../interfaces';
 
+interface AddQueInfoInt {
+	id: string;
+	body: string;
+	target: string;
+}
 
-export const addQueEmbed = (interaction: CommandInteraction, response: APIResponseInt) => {
+export const addQueEmbed = (interaction: CommandInteraction, { id, target, body }: AddQueInfoInt) => {
 	return new MessageEmbed()
 		.addFields(
-			{ name: 'Channel Target:', value: `${response.payload}` },
-			{ name: 'Post ID:', value: `${response.payload}` },
-			{ name: 'Post Body:', value: `${response.payload}` }
+			{ name: 'Channel Target:', value: `${target}` },
+			{ name: 'Post ID:', value: `${id}` },
+			{ name: 'Post Body:', value: `${body}` }
 		)
-		.setTitle('Added a post to the Que:')
+		.setTitle('added a post to the queue:')
 		.setAuthor({ name: `${interaction.user.username}` });
 };
