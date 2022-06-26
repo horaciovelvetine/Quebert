@@ -14,6 +14,17 @@ const cronfig = async () => {
 	return await getCurrentCronfig().then((res) => res.payload);
 };
 
+//==> TRY CATCH VERSION WITH A SYS_DEFAULT??
+// const test_cronfig = async (guilds: Collection<string, TextChannel>) => {
+// 	let sys_default = { days: 0, hours: 0, minutes: 15, seconds: 0, runImmediately: true };
+// 	try {
+// 		return await getCurrentCronfig().then((res) => res.payload);
+// 	} catch (error) {
+// 		guilds.get(mod)!.send({ embeds: [queRoutineFailEmbed(error)] });
+// 		return sys_default
+// 	}
+// };
+
 export const initQueRoutine = async (guilds: Collection<string, TextChannel>, scheduler: ToadScheduler) => {
 	let task = new AsyncTask(
 		ID,
