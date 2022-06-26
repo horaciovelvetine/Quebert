@@ -1,7 +1,10 @@
 export interface CurrentCronfigResInt {
 	message: string;
 	payload: {
-		cronfig: number[];
-		run_on_start: boolean;
+		days: number;
+		hours: number;
+		minutes: number;
+		seconds: number;
+		runImmediately: boolean;
 	};
 }
