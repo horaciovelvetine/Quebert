@@ -9,8 +9,12 @@ export const status: SlashCommandInt = {
 	data: new SlashCommandBuilder().setName('status').setDescription(`Ask Quebert how it's going`),
 	run: async (interaction: CommandInteraction) => {
 		let statusResponse = await postSlashCommand({ command: 'status', payload: 'default' });
-		let modEmbedPreview = statusEmbed(interaction, statusResponse);
 
+		let modEmbedPreview = statusEmbed(
+			interaction,
+			statusResponse.payload.total_queued,
+			statusResponse.payload.time_to_next
+		);
 		await interaction.reply({ embeds: [modEmbedPreview], ephemeral: true });
 	},
 };
