@@ -12,8 +12,7 @@ export const status: SlashCommandInt = {
 
 		let modEmbedPreview = statusEmbed(
 			interaction,
-			statusResponse.payload.total_queued,
-			statusResponse.payload.time_to_next
+			statusResponse
 		);
 		await interaction.reply({ embeds: [modEmbedPreview], ephemeral: true });
 	},

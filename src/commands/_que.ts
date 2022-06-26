@@ -14,19 +14,19 @@ export const que: SlashCommandInt = {
 		.addStringOption((opt) => opt.setName('msg-body').setDescription('Message body').setRequired(true)),
 	run: async (interaction: CommandInteraction) => {
 		let targetGuild = interaction.options.getChannel('target-channel')!;
-		let msgBody = interaction.options.getString('msg-body')!;
+		let body = interaction.options.getString('msg-body')!;
+		let target = targetGuild.name;
 
 		const response = await postSlashCommand({
 			command: 'que',
 			payload: {
 				id: interaction.id,
-				body: msgBody,
-				target: targetGuild,
+				body: body,
+				target: target,
 			},
 		});
 
-
-		modOnlyGuild(interaction)?.send({ embeds: [addQueEmbed(interaction, response.payload)] });
+		modOnlyGuild(interaction)?.send({ embeds: [addQueEmbed(interaction, { body, target })] });
 		await interaction.reply({ content: `${response.message}`, ephemeral: true });
 	},
 };
