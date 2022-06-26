@@ -22,7 +22,7 @@ export const que: SlashCommandInt = {
 			payload: {
 				id: interaction.id,
 				body: body,
-				target: target,
+				target: targetGuild,
 			},
 		});
 
