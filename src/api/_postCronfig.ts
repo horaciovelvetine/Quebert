@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 import { baseUrlFormatter } from '.';
+import type { CronfigResInt } from '../interfaces/api/_CronfigResInt';
 
-export const postCronfig = async (payload: any) => {
+export const postCronfig = async (payload: any): Promise<CronfigResInt> => {
 	try {
 		return await axios
 			.post(baseUrlFormatter(`/cronfig`), payload)

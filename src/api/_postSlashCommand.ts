@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 import { baseUrlFormatter } from '.';
+import type { APIResponseInt } from '../interfaces';
 
-export const postSlashCommand = async (payload: any) => {
+export const postSlashCommand = async (payload: any): Promise<APIResponseInt> => {
 	try {
 		return await axios
 			.post(baseUrlFormatter(`/slash-command`), payload)
