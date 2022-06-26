@@ -3,12 +3,12 @@ import { Routes } from 'discord-api-types/v9';
 
 import config from './config';
 import type { CombinedCommandsInt } from '../interfaces';
-import { que, status, clearAll, clearLast, clearPost } from '../commands';
+import { que, status, clearLast, clearPost } from '../commands';
 
 const { token, client, guild } = config;
 const rest = new REST({ version: '9' }).setToken(token);
 
-let AllSlashCommands = [que, status, clearAll, clearLast, clearPost];
+let AllSlashCommands = [que, status, clearLast, clearPost];
 
 export const deploySlashCommands = async (): Promise<CombinedCommandsInt[]> => {
 	try {
