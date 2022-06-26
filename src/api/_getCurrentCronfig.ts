@@ -1,11 +1,12 @@
 import axios from 'axios';
 
 import { baseUrlFormatter } from '.';
+import type { CurrentCronfigResInt } from '../interfaces';
 
-export const getCurrentCronfig = async () => {
+export const getCurrentCronfig = async (): Promise<CurrentCronfigResInt> => {
 	try {
 		return await axios
-			.get(baseUrlFormatter(`/slash-command`))
+			.get(baseUrlFormatter(`/cronfig`))
 			.then((response) => {
 				return response.data;
 			})

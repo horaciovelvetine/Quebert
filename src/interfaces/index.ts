@@ -1,5 +1,4 @@
-// for deployment of slash commands on startup
 export { SlashCommandInt, SlashCommandSubCommandInt, CombinedCommandsInt } from './_commands';
+export { PostInt } from './_post';
 
-export { APIResponseInt } from './_apiResponses';
-export { SlashCommandRequestInt } from './_apiSlashCommandReq'
+export { CurrentCronfigResInt, APIResponseInt, QueRoutineResInt } from './api';
