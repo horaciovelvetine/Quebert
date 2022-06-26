@@ -9,33 +9,40 @@ import { devConsoleMessage, queRoutineFailEmbed, queRoutineSuccessEmbed } from '
 let { mod } = config;
 const ID = 'QueRoutine';
 
-export const initQueRoutine = async (
-	guilds: Collection<string, TextChannel>,
-	scheduler: ToadScheduler
-	// cronfig = [0, 0, 15, 0, 0, true] => potential for later setup when start/stoppable
-) => {
+//? https://github.com/kibertoad/toad-scheduler
+
+export const initQueRoutine = async (guilds: Collection<string, TextChannel>, scheduler: ToadScheduler) => {
 	let task = new AsyncTask(
 		ID,
 		async () => {
 			let queRoutine: APIResponseInt = await axios
 				.get(baseUrlFormatter('/post-routine'))
 				.then((response) => response.data);
-			
-			
-			//! START::
-			//? should loop over response, and get each guild in payload and 
+
+			if (!queRoutine.payload.posts) {
+				guilds.get(mod)!.send({ content: 'Queue routine: Posts returned falsey from API' });
+			} else if (queRoutine.payload.posts.length === 0) {
+				// no posts in Queue
+				guilds.get(mod)!.send({ content: 'Queue routine: No posts in Queue' });
+			} else {
+				// posts path
+				queRoutine.payload.posts.forEach((post) => {
+					guilds.get(post.target)?.send(post.body);
+					guilds.get(mod)!.send({ embeds: [queRoutineSuccessEmbed(queRoutine.message)] });
+				});
+			}
+
 			devConsoleMessage(queRoutine.message);
-			guilds.get(mod)!.send({ embeds: [queRoutineSuccessEmbed(queRoutine.message)] });
 		},
 		(error) => {
 			devConsoleMessage(error.message);
-			guilds.get(mod)!.send({ embeds: [queRoutineFailEmbed(error.message)] });
+			guilds.get(mod)!.send({ embeds: [queRoutineFailEmbed(error)] });
 		}
 	);
 
 	let queRoutine = new SimpleIntervalJob(
 		{
-			minutes: 3,
+			minutes: 5,
 			runImmediately: true,
 		},
 		task,
