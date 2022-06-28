@@ -32,9 +32,17 @@ export const initQueRoutine = async (guilds: Collection<string, TextChannel>, sc
 				// no posts in Queue pause or handle err
 				if (scheduler.getById(ID).getStatus()) {
 					scheduler.stopById(ID); //task still exists but is .getStatus() == 'stopped'
-					guilds.get(mod)!.send({ content: 'Queue Routine paused: add items queue with: `/que`' });
+					guilds.get(mod)!.send({
+						content: 'Queue Paused: add items queue with: `/que`',
+						embeds: [queRoutineSuccessEmbed(queRoutine.message)],
+					});
 				} else {
-					guilds.get(mod)!.send({ content: 'Queue empty: no job found?' });
+					guilds
+						.get(mod)!
+						.send({
+							content: 'Queue empty error, no current task found',
+							embeds: [queRoutineSuccessEmbed(queRoutine.message)],
+						});
 				}
 			} else {
 				// posts in Queue success path
