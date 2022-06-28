@@ -10,20 +10,14 @@ import { devConsoleMessage, queRoutineFailEmbed, queRoutineSuccessEmbed } from '
 
 const { mod } = config;
 const ID = 'QueRoutine';
-const cronfig = async () => {
-	return await getCurrentCronfig().then((res) => res.payload);
+const cronfig = async (guilds: Collection<string, TextChannel>) => {
+	try {
+		return await getCurrentCronfig().then((res) => res.payload);
+	} catch (error) {
+		guilds.get(mod)!.send({ embeds: [queRoutineFailEmbed(error)], content: 'Default cronfig used' });
+		return { days: 0, hours: 0, minutes: 15, seconds: 0, runImmediately: true };
+	}
 };
-
-//==> TRY CATCH VERSION WITH A SYS_DEFAULT??
-// const test_cronfig = async (guilds: Collection<string, TextChannel>) => {
-// 	let sys_default = { days: 0, hours: 0, minutes: 15, seconds: 0, runImmediately: true };
-// 	try {
-// 		return await getCurrentCronfig().then((res) => res.payload);
-// 	} catch (error) {
-// 		guilds.get(mod)!.send({ embeds: [queRoutineFailEmbed(error)] });
-// 		return sys_default
-// 	}
-// };
 
 export const initQueRoutine = async (guilds: Collection<string, TextChannel>, scheduler: ToadScheduler) => {
 	let task = new AsyncTask(
@@ -33,14 +27,18 @@ export const initQueRoutine = async (guilds: Collection<string, TextChannel>, sc
 				.get(baseUrlFormatter('/post-routine'))
 				.then((response) => response.data);
 
-			if (!queRoutine.payload.posts) {
-				guilds.get(mod)!.send({ content: 'Queue routine: Posts returned falsey from API' });
-			} else if (queRoutine.payload.posts.length === 0) {
-				// no posts in Queue
-				guilds.get(mod)!.send({ content: `Queue routine success: 0 posts in Queue` });
+			// ToadScheduler builds in error handling: `!` is used for pot/undefined
+			if (queRoutine.payload.posts!.length === 0) {
+				// no posts in Queue pause or handle err
+				if (scheduler.getById(ID).getStatus()) {
+					scheduler.stopById(ID); //task still exists but is .getStatus() == 'stopped'
+					guilds.get(mod)!.send({ content: 'Queue Routine paused: add items queue with: `/que`' });
+				} else {
+					guilds.get(mod)!.send({ content: 'Queue empty: no job found?' });
+				}
 			} else {
-				// posts path
-				queRoutine.payload.posts.forEach((post) => {
+				// posts in Queue success path
+				queRoutine.payload.posts!.forEach((post) => {
 					guilds.get(post.target)?.send(post.body);
 				});
 				guilds.get(mod)!.send({ embeds: [queRoutineSuccessEmbed(queRoutine.message)] });
@@ -52,15 +50,7 @@ export const initQueRoutine = async (guilds: Collection<string, TextChannel>, sc
 			guilds.get(mod)!.send({ embeds: [queRoutineFailEmbed(error)] });
 		}
 	);
-	let queRoutine = new SimpleIntervalJob(await cronfig(), task, ID);
+	// INIT STARTS HERE::
+	let queRoutine = new SimpleIntervalJob(await cronfig(guilds), task, ID);
 	scheduler.addSimpleIntervalJob(queRoutine);
-};
-
-export const stopQueRoutine = (scheduler: ToadScheduler) => {
-	pauseQueRoutine(scheduler);
-	scheduler.removeById(ID);
-};
-
-export const pauseQueRoutine = (scheduler: ToadScheduler) => {
-	scheduler.stopById(ID);
 };

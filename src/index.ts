@@ -31,7 +31,7 @@ client.on('interactionCreate', async (interaction: Interaction) => {
 	try {
 		for (const command of slashCommands) {
 			if (interaction.commandName === command.data.name) {
-				await command.run(interaction);
+				await command.run(interaction, queScheduler, guilds);
 			}
 		}
 	} catch (error) {
