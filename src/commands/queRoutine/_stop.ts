@@ -14,7 +14,7 @@ export const stopQueRoutine: SlashCommandInt = {
 			});
 		} else {
 			queScheduler.removeById('QueRoutine');
-			await interaction.reply({ content: 'Que Routine paused successfully' });
+			await interaction.reply({ content: 'Que Routine stopped successfully' });
 		}
 	},
 };
