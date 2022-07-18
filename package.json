@@ -1,5 +1,5 @@
 {
-	"name": "Quebert [bot]",
+	"name": "Quebert-bot",
 	"version": "1.0.0-a",
 	"description": "Quebert: A bot built for the MetaIntro Discord community",
 	"main": "dist/index.js",

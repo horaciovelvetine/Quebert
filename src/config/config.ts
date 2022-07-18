@@ -16,7 +16,7 @@ export const clientDetails = (): ClientOptions => {
 			status: 'online',
 			activities: [
 				{
-					name: `@me for info!`,
+					name: ``, //sets activity in sidebar
 					type: 'LISTENING',
 				},
 			],

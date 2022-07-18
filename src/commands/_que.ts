@@ -25,6 +25,7 @@ export const que: SlashCommandInt = {
 				target: targetGuild,
 			},
 		});
+
 		let task = queScheduler.getById('QueRoutine');
 		let successEmbed = addQueEmbed(interaction, { body, target });
 		let { time_of_last, time_to_next } = { ...response.payload };
@@ -49,7 +50,7 @@ export const que: SlashCommandInt = {
 			});
 		}
 
-		// preview sent per, ephemeral reply all
+		// preview sent, ephemeral reply to poster
 		interaction.reply({ content: `${response.message}`, ephemeral: true });
 	},
 };
