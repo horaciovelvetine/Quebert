@@ -1,7 +1,8 @@
 import config from '../config/config';
 
-let { baseUrl } = config;
+const { baseUrl, devUrl } = config;
 
-export const baseUrlFormatter = (route: string): string => {
-	return baseUrl + route;
+export const baseUrlFormatter = (route: string, dev = false): string => {
+	return dev ? devUrl + route : baseUrl + route;
 };
+
