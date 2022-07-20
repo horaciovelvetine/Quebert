@@ -9,7 +9,7 @@ export const pauseQueRoutine: SlashCommandInt = {
 	run: async (interaction, queScheduler) => {
 		let task = queScheduler.getById('QueRoutine');
 		if (!task) {
-			await interaction.reply({ content: 'Que Routine not initialized, use: `start-que-routine` to initizle.' });
+			await interaction.reply({ content: 'Que Routine not initialized, use: `start-que-routine` to initialize.' });
 		} else {
 			if (task.getStatus() === 'stopped') return;
 			task.stop();

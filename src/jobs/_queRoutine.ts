@@ -27,8 +27,9 @@ export const initQueRoutine = async (guilds: Collection<string, TextChannel>, sc
 				.get(baseUrlFormatter('/post-routine'))
 				.then((response) => response.data);
 
-			// ToadScheduler builds in error handling: `!` is used for pot/undefined
+			// ToadScheduler builds in error handling: `!` is used for post/undefined
 			if (queRoutine.payload.posts!.length === 0) {
+				
 				// no posts in Queue pause or handle err
 				if (scheduler.getById(ID).getStatus()) {
 					scheduler.stopById(ID); //task still exists but is .getStatus() == 'stopped'
