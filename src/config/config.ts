@@ -7,6 +7,7 @@ export default {
 	guild: process.env.GUILD_ID!,
 	mod: process.env.MOD_ONLY!,
 	baseUrl: process.env.BASE_URL!,
+	devUrl: process.env.DEV_URL!,
 };
 
 export const clientDetails = (): ClientOptions => {
