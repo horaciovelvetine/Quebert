@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 
 import { postSlashCommand } from '../api';
-import { modOnlyGuild } from '../config';
+import { modOnlyGuild } from '../utils';
 import { addQueEmbed } from '../messages';
 import type { SlashCommandInt } from '../interfaces';
 import { initQueRoutine } from '../jobs';
