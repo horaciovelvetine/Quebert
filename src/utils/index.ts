@@ -1,4 +1,7 @@
+// for QB message responses
 export { parseQuebertMention } from './_parseQuebertMention';
 export { parseHelpEmbedResponse } from './_parseHelpEmbedResponse';
 export { pingMods } from './_pingMods';
-export { modOnlyGuild } from './_modOnlyGuild';
+// get mod channel from source helpers
+export { getModOnlyFromClient } from './getModOnly/_fromClient';
+export { getModOnlyFromInteraction } from './getModOnly/_fromInteraction';
