@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 
-export const contributeInfo = () => {
+export const contributeInfoEmbed = () => {
 	return new MessageEmbed()
 		.setTitle('Contribute to the Server')
 		.setDescription(

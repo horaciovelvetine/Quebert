@@ -16,21 +16,28 @@ export const atQuebertEmbed = () => {
 				inline: true,
 			},
 			{
-				name: 'Help',
+				name: 'Help!',
 				value:
 					'type: `!help` to get an introduction to the server explaining the channels, and rules we have in place.',
 			},
 			{
-				name: 'Notify a moderator',
+				name: 'Notify the Moderator Team:',
 				value: 'type: `!spam` to notify the moderation team of a spammer.',
 			},
 			{
-				name: 'Contribute',
-				value: 'type: `!contribute` to get an info on to how to contribute to the server or Quebert.',
+				name: 'Contribute to the Community:',
+				value:
+					'type: `!contribute` to get some info on to how to contribute to the server or Quebert through our build into bounties program.',
 			},
 			{
-				name: 'Collaborate',
-				value: 'type: `!collab` to get an info on collaborating with the official Metaintro Discord Server.',
+				name: 'Collaborate with Metaintro!',
+				value:
+					'type: `!collab` to get info on how to submite a collab request with the official Metaintro Discord Server.',
+			},
+			{
+				name: 'Verify your work skills:',
+				value:
+					'type: `!verify` to get some info on how to verify your skills, recieve the appropriate roles, and get tagged when relevant opportunities are posted.',
 			}
 		);
 };

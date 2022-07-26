@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 
-export const collabInfo = () => {
+export const collabInfoEmbed = () => {
 	return new MessageEmbed()
 		.setTitle('Collaborate with Metaintro')
 		.setURL('https://tkljpnjuayc.typeform.com/to/jfi5BRj9')
