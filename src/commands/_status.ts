@@ -2,9 +2,9 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 
 import { postSlashCommand } from '../api';
 import { statusEmbed } from '../messages';
-import type { SlashCommandInt } from '../interfaces';
+import type { SLASH_COMMAND } from '../interfaces';
 
-export const status: SlashCommandInt = {
+export const status: SLASH_COMMAND = {
 	data: new SlashCommandBuilder().setName('status').setDescription(`Ask Quebert how it's going`),
 	run: async (interaction, queScheduler) => {
 		let statusResponse = await postSlashCommand({ command: 'status', payload: 'default' });

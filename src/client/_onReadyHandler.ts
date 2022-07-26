@@ -1,12 +1,12 @@
 import type { Client, Collection, TextChannel } from 'discord.js';
-import type { CombinedCommandsInt } from '../interfaces';
+import type { COMBINED_COMMANDS } from '../interfaces';
 import type { ToadScheduler } from 'toad-scheduler';
 import { deploySlashCommands } from './_deploySlashCommands';
 import { initQueRoutine } from '../jobs';
 
 interface ON_READY_PROPS {
 	guilds: Collection<string, TextChannel>;
-	slashCommands: CombinedCommandsInt[];
+	slashCommands: COMBINED_COMMANDS[];
 	queScheduler: ToadScheduler;
 	client: Client;
 }

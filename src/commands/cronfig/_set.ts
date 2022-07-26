@@ -1,10 +1,10 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { postCronfig } from '../../api';
 
-import type { SlashCommandInt } from '../../interfaces';
+import type { SLASH_COMMAND } from '../../interfaces';
 import { initQueRoutine } from '../../jobs';
 
-export const setCronfig: SlashCommandInt = {
+export const setCronfig: SLASH_COMMAND = {
 	data: new SlashCommandBuilder()
 		.setName('set-interval')
 		.setDescription('Change the current interval Quebert waits between posts: (blank values will be 0 by default)')

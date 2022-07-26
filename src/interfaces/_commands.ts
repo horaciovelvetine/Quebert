@@ -2,7 +2,7 @@ import type { SlashCommandSubcommandsOnlyBuilder, SlashCommandBuilder } from '@d
 import type { Collection, CommandInteraction, TextChannel } from 'discord.js';
 import type { ToadScheduler } from 'toad-scheduler';
 
-export interface SlashCommandInt {
+export interface SLASH_COMMAND {
 	data: Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>;
 	run: (
 		interaction: CommandInteraction,
@@ -11,7 +11,7 @@ export interface SlashCommandInt {
 	) => Promise<void>;
 }
 
-export interface SlashCommandSubCommandInt {
+export interface SLASH_W_SUB_COMMANDS {
 	data: SlashCommandSubcommandsOnlyBuilder | SlashCommandBuilder;
 	run: (
 		interaction: CommandInteraction,
@@ -20,4 +20,4 @@ export interface SlashCommandSubCommandInt {
 	) => Promise<void>;
 }
 
-export type CombinedCommandsInt = SlashCommandInt | SlashCommandSubCommandInt;
+export type COMBINED_COMMANDS = SLASH_COMMAND | SLASH_W_SUB_COMMANDS;

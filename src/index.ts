@@ -5,7 +5,7 @@ import { ToadScheduler } from 'toad-scheduler';
 
 //types
 import type { Collection, TextChannel } from 'discord.js';
-import type { CombinedCommandsInt } from './interfaces';
+import type { COMBINED_COMMANDS } from './interfaces';
 
 //lib
 import { interactionCreateHandler, messageCreationHandler, onReadyHandler } from './client';
@@ -19,7 +19,7 @@ const queScheduler = new ToadScheduler();
 const client = new Client(clientDetails());
 
 // needed vars for Quebert to reference
-let slashCommands: CombinedCommandsInt[];
+let slashCommands: COMBINED_COMMANDS[];
 let guilds: Collection<string, TextChannel>;
 
 client.on('ready', async () => {

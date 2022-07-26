@@ -1,9 +1,9 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { getCurrentCronfig } from '../../api';
 
-import type { SlashCommandInt } from '../../interfaces';
+import type { SLASH_COMMAND } from '../../interfaces';
 
-export const currentCronfig: SlashCommandInt = {
+export const currentCronfig: SLASH_COMMAND = {
 	data: new SlashCommandBuilder()
 		.setName('current-interval')
 		.setDescription('The current interval Quebert waits between posts'),

@@ -3,10 +3,10 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { postSlashCommand } from '../api';
 import { modOnlyGuild } from '../utils';
 import { addQueEmbed } from '../messages';
-import type { SlashCommandInt } from '../interfaces';
+import type { SLASH_COMMAND } from '../interfaces';
 import { initQueRoutine } from '../jobs';
 
-export const que: SlashCommandInt = {
+export const que: SLASH_COMMAND = {
 	data: new SlashCommandBuilder()
 		.setName('que')
 		.setDescription('Add a message to the Queue')

@@ -1,9 +1,9 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 
 import { postSlashCommand } from '../../api';
-import type { SlashCommandInt } from '../../interfaces';
+import type { SLASH_COMMAND } from '../../interfaces';
 
-export const clearAll: SlashCommandInt = {
+export const clearAll: SLASH_COMMAND = {
 	data: new SlashCommandBuilder()
 		.setName('clear-que')
 		.setDescription('Clear all posts from the queue.')

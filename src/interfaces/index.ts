@@ -1,4 +1,2 @@
-export { SlashCommandInt, SlashCommandSubCommandInt, CombinedCommandsInt } from './_commands';
-export { PostInt } from './_post';
-
-export { CurrentCronfigResInt, APIResponseInt, QueRoutineResInt } from './api';
+export { COMBINED_COMMANDS, SLASH_COMMAND, SLASH_W_SUB_COMMANDS } from './_commands';
+export { POST } from './_post';

@@ -1,9 +1,9 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 
 import { postSlashCommand } from '../../api';
-import type { SlashCommandInt } from '../../interfaces';
+import type { SLASH_COMMAND } from '../../interfaces';
 
-export const clearPost: SlashCommandInt = {
+export const clearPost: SLASH_COMMAND = {
 	data: new SlashCommandBuilder()
 		.setName('clear-post')
 		.setDescription('Clear a specific post from the queue.')

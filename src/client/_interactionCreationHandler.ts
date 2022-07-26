@@ -3,13 +3,14 @@ import type { Collection, Interaction, TextChannel } from 'discord.js';
 import type { ToadScheduler } from 'toad-scheduler';
 
 //lib
-import type { CombinedCommandsInt } from '../interfaces';
+import type { COMBINED_COMMANDS } from '../interfaces';
+import { devConsoleMessage } from '../messages';
 
 interface INTERACTION_HANDLER_PROPS {
 	interaction: Interaction;
 	queScheduler: ToadScheduler;
 	guilds: Collection<string, TextChannel>;
-	slashCommands: CombinedCommandsInt[];
+	slashCommands: COMBINED_COMMANDS[];
 }
 
 export async function interactionCreateHandler({
@@ -28,6 +29,7 @@ export async function interactionCreateHandler({
 			}
 		}
 	} catch (error) {
-		await interaction.reply({ content: `${error}`, ephemeral: true });
+		devConsoleMessage(error);
+		await interaction.reply({ content: `${error.message}`, ephemeral: true });
 	}
 }

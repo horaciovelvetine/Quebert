@@ -8,12 +8,12 @@ import { AllSlashCommands } from '../commands';
 import { devConsoleMessage } from '../messages';
 
 // interfaces
-import type { CombinedCommandsInt } from '../interfaces';
+import type { COMBINED_COMMANDS } from '../interfaces';
 
 const { token, client_id, guild } = config;
 const rest = new REST({ version: '9' }).setToken(token);
 
-export const deploySlashCommands = async (): Promise<CombinedCommandsInt[]> => {
+export const deploySlashCommands = async (): Promise<COMBINED_COMMANDS[]> => {
 	try {
 		devConsoleMessage(`Updating Quebert's slash (/) commands...`);
 		await rest.put(Routes.applicationGuildCommands(client_id!, guild!), {
