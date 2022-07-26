@@ -24,7 +24,7 @@ export const initQueRoutine = async (guilds: Collection<string, TextChannel>, sc
 		ID,
 		async () => {
 			let queRoutine: APIResponseInt = await axios
-				.get(baseUrlFormatter('/post-routine'))
+				.get(baseUrlFormatter('/post-routine', true))
 				.then((response) => response.data);
 
 			// ToadScheduler builds in error handling: `!` is used for post/undefined

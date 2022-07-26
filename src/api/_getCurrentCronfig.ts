@@ -6,7 +6,7 @@ import type { CurrentCronfigResInt } from '../interfaces';
 export const getCurrentCronfig = async (): Promise<CurrentCronfigResInt> => {
 	try {
 		return await axios
-			.get(baseUrlFormatter(`/cronfig`))
+			.get(baseUrlFormatter(`/cronfig`, true))
 			.then((response) => {
 				return response.data;
 			})

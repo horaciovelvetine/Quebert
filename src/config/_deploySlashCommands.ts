@@ -15,7 +15,7 @@ import {
 	pauseQueRoutine,
 } from '../commands';
 
-const { token, client, guild } = config;
+const { token, client_id, guild } = config;
 const rest = new REST({ version: '9' }).setToken(token);
 
 let AllSlashCommands = [
@@ -33,7 +33,7 @@ let AllSlashCommands = [
 export const deploySlashCommands = async (): Promise<CombinedCommandsInt[]> => {
 	try {
 		console.log(`Updating Quebert's slash (/) commands...`);
-		await rest.put(Routes.applicationGuildCommands(client!, guild!), {
+		await rest.put(Routes.applicationGuildCommands(client_id!, guild!), {
 			body: AllSlashCommands.map((c) => c.data.toJSON()),
 		});
 		console.log(`Commands successfully updated.`);

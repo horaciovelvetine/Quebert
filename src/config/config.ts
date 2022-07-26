@@ -3,7 +3,7 @@ import type { ClientOptions } from 'discord.js';
 
 export default {
 	token: process.env.DISCORD_TOKEN!,
-	client: process.env.CLIENT_ID!,
+	client_id: process.env.CLIENT_ID!,
 	guild: process.env.GUILD_ID!,
 	mod: process.env.MOD_ONLY!,
 	baseUrl: process.env.BASE_URL!,
