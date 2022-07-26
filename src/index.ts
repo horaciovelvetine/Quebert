@@ -13,24 +13,23 @@ import { devConsoleMessage } from './messages';
 
 //get api token, init ToadScheduler
 const { token } = config;
-const queScheduler = new ToadScheduler();
+const jobsSchedulerClient = new ToadScheduler();
 
 // creates discord.js client
 const client = new Client(clientDetails());
 
 // needed vars for Quebert to reference
 let slashCommands: COMBINED_COMMANDS[];
-let guilds: Collection<string, TextChannel>;
 
 client.on('ready', async () => {
 	// deploys slash commands, begins and sets up que routine
-	onReadyHandler({guilds, slashCommands, queScheduler, client})
+	onReadyHandler({ slashCommands, jobsSchedulerClient, client });
 	devConsoleMessage(`Quebert is Logged in and ready`);
 });
 
 client.on('interactionCreate', async (interaction) => {
 	// Handles all interactions: currently only slash commands
-	interactionCreateHandler({ interaction, queScheduler, guilds, slashCommands });
+	interactionCreateHandler({ interaction, jobsSchedulerClient, slashCommands });
 	return;
 });
 

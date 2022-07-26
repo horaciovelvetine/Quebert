@@ -1,21 +1,22 @@
-import type { Client, Collection, TextChannel } from 'discord.js';
-import type { COMBINED_COMMANDS } from '../interfaces';
+// external libs
+import type { Client } from 'discord.js';
 import type { ToadScheduler } from 'toad-scheduler';
+
+// interfaces
+import type { COMBINED_COMMANDS } from '../interfaces';
+
+//lib
 import { deploySlashCommands } from './_deploySlashCommands';
-import { initQueRoutine } from '../jobs';
+import { initializeQueRoutine } from '../jobs';
 
 interface ON_READY_PROPS {
-	guilds: Collection<string, TextChannel>;
 	slashCommands: COMBINED_COMMANDS[];
-	queScheduler: ToadScheduler;
+	jobsSchedulerClient: ToadScheduler;
 	client: Client;
 }
 
-export async function onReadyHandler({ guilds, slashCommands, queScheduler, client }: ON_READY_PROPS) {
-	guilds = client.channels.cache.filter((channel) => channel.type === 'GUILD_TEXT') as unknown as Collection<
-		string,
-		TextChannel
-	>;
-  slashCommands = await deploySlashCommands();
-  initQueRoutine(guilds, queScheduler);
+export async function onReadyHandler({ slashCommands, jobsSchedulerClient, client }: ON_READY_PROPS) {
+	// sets slashCommands value for interactionCreateHandler to use
+	slashCommands = await deploySlashCommands();
+	initializeQueRoutine({ client, jobsSchedulerClient });
 }
