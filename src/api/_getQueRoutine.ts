@@ -1,22 +1,18 @@
 import axios from 'axios';
-
 import { baseUrlFormatter } from '.';
 import type { POST } from '../interfaces';
 
-interface POST_SLASH_COMMAND_RESPONSE {
+interface QUE_ROUTINE_RESPONSE {
 	message: string;
 	payload: {
-		posts?: POST[];
-		time_of_last?: string;
-		time_to_next?: string;
-		total_queued?: string;
+		posts: POST[];
 	};
 }
 
-export const postSlashCommand = async (payload: any): Promise<POST_SLASH_COMMAND_RESPONSE> => {
+export const getQueRoutine = async (): Promise<QUE_ROUTINE_RESPONSE> => {
 	try {
 		return await axios
-			.post(baseUrlFormatter(`/slash-command`), payload)
+			.get(baseUrlFormatter(`/post-routine`))
 			.then((response) => {
 				return response.data;
 			})
