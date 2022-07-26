@@ -11,7 +11,7 @@ import type { CombinedCommandsInt } from './interfaces';
 import { deploySlashCommands } from './config';
 import { initQueRoutine } from './jobs';
 import { parseQuebertMention, parseHelpEmbedResponse, pingMods } from './utils';
-import { atQuebertEmbed } from './messages/embeds/_atQuebert';
+import { atQuebertEmbed, collabInfoEmbed, contributeInfoEmbed, helpInfoEmbed, verifyInfoEmbed } from './messages';
 
 //get api token, init ToadScheduler
 const { token, client_id } = config;
@@ -48,20 +48,37 @@ client.on('interactionCreate', async (interaction) => {
 });
 
 client.on('messageCreate', async (message) => {
-	// QUEBERT MENTION HANDLER
-	if (!parseQuebertMention(message.content) && !parseHelpEmbedResponse(message.content)) return;
+	// All message handlers: messages to which Quebert responds
+	try {
+		// Reply to @Quebert
+		if (parseQuebertMention(message.content) === client_id) {
+			await message.reply({ embeds: [atQuebertEmbed()] });
+		}
+		// Embeded info responses
+		if (parseHelpEmbedResponse(message.content)) {
+			let messageEmbed = () => {
+				switch (parseHelpEmbedResponse(message.content)) {
+					case '!help':
+						return helpInfoEmbed();
+					case '!contribute':
+						return contributeInfoEmbed();
+					case '!collab':
+						return collabInfoEmbed();
+					case '!verify':
+						return verifyInfoEmbed();
+					default:
+						return atQuebertEmbed();
+				}
+			};
 
-	// Reply to @Quebert
-	if (parseQuebertMention(message.content) === client_id) {
-		await message.reply({ embeds: [atQuebertEmbed()] });
-	}
-
-	if (parseHelpEmbedResponse(message.content)) {
-		await message.reply({ embeds: [parseHelpEmbedResponse(message.content)!] });
-	}
-
-	if (pingMods(message.content)) {
-		await message.reply({ content: pingMods(message.content) });
+			await message.reply({ embeds: [messageEmbed()] });
+		}
+		// Embeded ping a moderator response
+		if (pingMods(message.content)) {
+			await message.reply({ content: 'Notifying the mod team! <@934481537263624242>' });
+		}
+	} catch (error) {
+		await message.reply({ content: `${error}` });
 	}
 
 	return;
