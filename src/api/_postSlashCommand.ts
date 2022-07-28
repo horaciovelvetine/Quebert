@@ -1,29 +1,27 @@
 import axios from 'axios';
 
 import { baseUrlFormatter } from '.';
-import type { POST } from '../interfaces';
+import { handleAPIError } from './_handleAPIError';
 
 interface POST_SLASH_COMMAND_RESPONSE {
+	success: boolean;
 	message: string;
 	payload: {
-		posts?: POST[];
-		time_of_last?: string;
-		time_to_next?: string;
+		error?: any;
 		total_queued?: string;
 	};
 }
 
 export const postSlashCommand = async (payload: any): Promise<POST_SLASH_COMMAND_RESPONSE> => {
-	try {
-		return await axios
-			.post(baseUrlFormatter(`/slash-command`), payload)
-			.then((response) => {
-				return response.data;
-			})
-			.catch((error) => {
-				return error;
-			});
-	} catch (error) {
-		return error;
-	}
+	return await axios
+		.post(baseUrlFormatter(`/slash-command`), payload)
+		.then((response) => {
+			let data = { success: true, ...structuredClone(response.data) };
+			return data;
+		})
+		.catch((error) => {
+			handleAPIError(error);
+			let data = { success: false, ...handleAPIError(error) };
+			return data;
+		});
 };
