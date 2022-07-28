@@ -1,5 +1,5 @@
 // external lib imports
-import type { Collection, Interaction, TextChannel } from 'discord.js';
+import type { Interaction } from 'discord.js';
 import type { ToadScheduler } from 'toad-scheduler';
 
 //lib
@@ -8,15 +8,13 @@ import { devConsoleMessage } from '../messages';
 
 interface INTERACTION_HANDLER_PROPS {
 	interaction: Interaction;
-	queScheduler: ToadScheduler;
-	guilds: Collection<string, TextChannel>;
+	jobsSchedulerClient: ToadScheduler;
 	slashCommands: COMBINED_COMMANDS[];
 }
 
 export async function interactionCreateHandler({
 	interaction,
-	queScheduler,
-	guilds,
+	jobsSchedulerClient,
 	slashCommands,
 }: INTERACTION_HANDLER_PROPS) {
 	// SLASH COMMAND INTERACTION HANDLING
@@ -25,7 +23,7 @@ export async function interactionCreateHandler({
 	try {
 		for (const command of slashCommands) {
 			if (interaction.commandName === command.data.name) {
-				await command.run(interaction, queScheduler, guilds);
+				await command.run(interaction, jobsSchedulerClient);
 			}
 		}
 	} catch (error) {
