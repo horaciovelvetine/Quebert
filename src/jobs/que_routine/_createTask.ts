@@ -21,8 +21,8 @@ export const createQueRoutineTask = ({ client, scheduler, task_id }: CREATE_QUE_
 			let payload = response.payload;
 
 			switch (true) {
-				// no posts in Queue: success path, stop task
 				case payload.posts.length === 0:
+					// no posts in Queue: success path, stops Que Routine task
 					if (scheduler.getById(task_id).getStatus()) {
 						// task does exist, and is paused since no posts
 						scheduler.getById(task_id).stop();
@@ -37,8 +37,9 @@ export const createQueRoutineTask = ({ client, scheduler, task_id }: CREATE_QUE_
 						});
 					}
 					break;
-				// posts in Queue: success path, send posts
+
 				case payload.posts.length >= 1:
+					// Normal Que Routine success path: iterate and send posts
 					payload.posts.forEach((post) => {
 						let targetChannel = client.channels.cache.get(post.target) as unknown as TextChannel;
 						targetChannel.send(post.body);
