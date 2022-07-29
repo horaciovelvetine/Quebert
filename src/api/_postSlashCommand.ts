@@ -16,12 +16,10 @@ export const postSlashCommand = async (payload: any): Promise<POST_SLASH_COMMAND
 	return await axios
 		.post(baseUrlFormatter(`/slash-command`), payload)
 		.then((response) => {
-			let data = { success: true, ...structuredClone(response.data) };
-			return data;
+			return { success: true, ...structuredClone(response.data) };
 		})
 		.catch((error) => {
 			handleAPIError(error);
-			let data = { success: false, ...handleAPIError(error) };
-			return data;
+			return { success: false, ...handleAPIError(error) };
 		});
 };
