@@ -4,7 +4,6 @@ import { Client } from 'discord.js';
 import { ToadScheduler } from 'toad-scheduler';
 
 //types
-import type { Collection, TextChannel } from 'discord.js';
 import type { COMBINED_COMMANDS } from './interfaces';
 
 //lib
