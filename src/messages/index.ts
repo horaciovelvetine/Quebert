@@ -1,4 +1,4 @@
-export { addQueEmbed } from './embeds/_addQue';
+export { addPostToQuePreviewEmbed } from './embeds/_addPostToQuePreview';
 export { statusEmbed } from './embeds/_status';
 export { errorEmbed } from './embeds/_error';
 export { queRoutineSuccessEmbed } from './embeds/_queRoutineSuccess';
