@@ -12,7 +12,7 @@ const task_id = 'QueRoutine';
 
 // fetches current cronfig from api to set interval timing
 const cronfig = async () => {
-	return await getCurrentCronfig().then((res) => res.payload);
+	return await getCurrentCronfig().then((res) => res.payload.cronfig);
 };
 
 export async function initializeQueRoutine({ client, jobsSchedulerClient }: INITIALIZE_QUE_ROUTINE_PROPS) {
