@@ -7,7 +7,7 @@ import type { COMBINED_COMMANDS } from '../interfaces';
 
 //lib
 import { deploySlashCommands } from './_deploySlashCommands';
-import { initializeQueRoutine } from '../jobs';
+import { initializeQueRoutine, initializeScrapeJobBoards } from '../jobs';
 
 interface ON_READY_PROPS {
 	slashCommands: COMBINED_COMMANDS[];
@@ -18,5 +18,8 @@ interface ON_READY_PROPS {
 export async function onReadyHandler({ slashCommands, jobsSchedulerClient, client }: ON_READY_PROPS) {
 	// sets slashCommands value for interactionCreateHandler to use
 	slashCommands = await deploySlashCommands();
+
+	// initialize jobs w/ ToadScheduler client 
 	initializeQueRoutine({ client, jobsSchedulerClient });
+	initializeScrapeJobBoards({ client, jobsSchedulerClient });
 }

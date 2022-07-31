@@ -1,7 +1,7 @@
 import { status } from './_status';
-import { que } from './_que';
-import { clearLast, clearPost } from './clear';
-import { setCronfig, currentCronfig } from './cronfig';
+import { que } from './queRoutine/_que';
+import { clearLast, clearPost } from './queRoutine/clear';
+import { setCronfig, currentCronfig } from './queRoutine/cronfig';
 import { pauseQueRoutine, startQueRoutine, stopQueRoutine } from './queRoutine';
 
 
