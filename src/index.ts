@@ -1,43 +1,42 @@
-// config & lib
+// config & external lib imports
 import config, { clientDetails } from './config/config';
-import type { Collection, Interaction, TextChannel } from 'discord.js';
 import { Client } from 'discord.js';
-import { deploySlashCommands } from './config';
 import { ToadScheduler } from 'toad-scheduler';
-import type { CombinedCommandsInt } from './interfaces';
-import { initQueRoutine } from './jobs';
 
+//types
+import type { COMBINED_COMMANDS } from './interfaces';
+
+//lib
+import { interactionCreateHandler, messageCreationHandler, onReadyHandler } from './client';
+import { devConsoleMessage } from './messages';
+
+//get api token, init ToadScheduler
 const { token } = config;
-const queScheduler = new ToadScheduler();
+const jobsSchedulerClient = new ToadScheduler();
 
+// creates discord.js client
 const client = new Client(clientDetails());
 
-let slashCommands: CombinedCommandsInt[];
-let guilds: Collection<string, TextChannel>;
+// needed vars for Quebert to reference
+let slashCommands: COMBINED_COMMANDS[];
 
 client.on('ready', async () => {
-	guilds = client.channels.cache.filter((channel) => channel.type === 'GUILD_TEXT') as unknown as Collection<
-		string,
-		TextChannel
-	>;
-	slashCommands = await deploySlashCommands();
-	initQueRoutine(guilds, queScheduler);
-	console.log(`Quebert is Logged in and ready`);
+	// deploys slash commands, begins and sets up que routine
+	onReadyHandler({ slashCommands, jobsSchedulerClient, client });
+	devConsoleMessage(`Quebert is Logged in and ready`);
 });
 
-client.on('interactionCreate', async (interaction: Interaction) => {
-	if (!interaction.isCommand()) return;
+client.on('interactionCreate', async (interaction) => {
+	// Handles all interactions: currently only slash commands
+	interactionCreateHandler({ interaction, jobsSchedulerClient, slashCommands });
+	return;
+});
 
-	try {
-		for (const command of slashCommands) {
-			if (interaction.commandName === command.data.name) {
-				await command.run(interaction, queScheduler, guilds);
-			}
-		}
-	} catch (error) {
-		console.log(error);
-		await interaction.reply({ content: `${error}`, ephemeral: true });
-	}
+client.on('messageCreate', async (message) => {
+	// Handles all messages to which Quebert responds
+	if (!message.content) return;
+	messageCreationHandler(message);
+	return;
 });
 
 client.login(token);

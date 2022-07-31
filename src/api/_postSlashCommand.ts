@@ -1,19 +1,25 @@
 import axios from 'axios';
 
 import { baseUrlFormatter } from '.';
-import type { APIResponseInt } from '../interfaces';
+import { handleAPIError } from './_handleAPIError';
 
-export const postSlashCommand = async (payload: any): Promise<APIResponseInt> => {
-	try {
-		return await axios
-			.post(baseUrlFormatter(`/slash-command`), payload)
-			.then((response) => {
-				return response.data;
-			})
-			.catch((error) => {
-				return error;
-			});
-	} catch (error) {
-		return error;
-	}
+interface POST_SLASH_COMMAND_RESPONSE {
+	success: boolean;
+	message: string;
+	payload: {
+		error?: any;
+		total_queued?: string;
+	};
+}
+
+export const postSlashCommand = async (payload: any): Promise<POST_SLASH_COMMAND_RESPONSE> => {
+	return await axios
+		.post(baseUrlFormatter(`/slash-command`), payload)
+		.then((response) => {
+			return { success: true, ...structuredClone(response.data) };
+		})
+		.catch((error) => {
+			handleAPIError(error);
+			return { success: false, ...handleAPIError(error) };
+		});
 };

@@ -1,19 +1,25 @@
 import axios from 'axios';
 
 import { baseUrlFormatter } from '.';
-import type { CurrentCronfigResInt } from '../interfaces';
+import { CRONFIG, defaultCronfig } from '../interfaces';
+import { handleAPIError } from './_handleAPIError';
 
-export const getCurrentCronfig = async (): Promise<CurrentCronfigResInt> => {
-	try {
-		return await axios
-			.get(baseUrlFormatter(`/cronfig`))
-			.then((response) => {
-				return response.data;
-			})
-			.catch((error) => {
-				return error;
-			});
-	} catch (error) {
-		return error;
-	}
+interface CURRENT_CRONFIG_RESPONSE {
+	success: boolean;
+	message: string;
+	payload: {
+		cronfig: CRONFIG;
+		error: any;
+	};
+}
+
+export const getCurrentCronfig = async (): Promise<CURRENT_CRONFIG_RESPONSE> => {
+	return await axios
+		.get(baseUrlFormatter(`/cronfig`))
+		.then((response) => {
+			return { success: true, ...structuredClone(response.data) };
+		})
+		.catch((error) => {
+			return { success: false, message: handleAPIError(error), payload: { cronfig: defaultCronfig } };
+		});
 };

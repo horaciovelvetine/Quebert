@@ -1,21 +1,20 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-
 import { postSlashCommand } from '../../api';
-import type { SlashCommandInt } from '../../interfaces';
+import type { SLASH_COMMAND } from '../../interfaces';
 
-export const clearPost: SlashCommandInt = {
+export const removePostById: SLASH_COMMAND = {
 	data: new SlashCommandBuilder()
-		.setName('clear-post')
+		.setName('remove-post-by-ID')
 		.setDescription('Clear a specific post from the queue.')
 		.addStringOption((opt) =>
 			opt.setName('post-id').setDescription('The id of the post you want to remove from the queue').setRequired(true)
 		),
 	run: async (interaction) => {
-		let clearResponse = await postSlashCommand({
+		let response = await postSlashCommand({
 			command: 'clear',
 			payload: interaction.options.getString('post-id')!,
 		});
 
-		interaction.reply({ content: `${clearResponse.message}`, ephemeral: true });
+		return await interaction.reply({ content: `${response.message}`, ephemeral: true });
 	},
 };
